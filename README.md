@@ -63,21 +63,25 @@ OPTIONAL: Add screenshots after you take them, then remove these comment lines.
 ```
 campus-talent-platform/
 ├── client/                  # React + Vite frontend
-│   ├── src/
-│   │   ├── App.jsx          # Routing, views, API calls
-│   │   ├── App.css          # Styles
-│   │   └── main.jsx         # React entry point
+│   ├── src/                 # App.jsx, App.css, main.jsx, assets
 │   └── .env.example         # Frontend environment template
-└── server/                  # Express + Mongoose backend
-    ├── src/
-    │   ├── app.js           # Express app (middleware, routes)
-    │   ├── server.js        # Entry point (DB connect, then listen)
-    │   ├── config/db.js     # MongoDB Atlas connection
-    │   ├── controllers/     # Request handlers
-    │   ├── middleware/      # Auth, role guards, error handling
-    │   ├── models/          # Mongoose schemas
-    │   └── routes/          # Express routers
-    └── .env.example         # Backend environment template
+├── server/                  # Express + Mongoose backend
+│   ├── scripts/
+│   │   └── seed-demo.js     # Optional demo data (development only)
+│   ├── src/
+│   │   ├── app.js           # Express app (middleware, routes)
+│   │   ├── server.js        # Entry point (DB connect, then listen)
+│   │   ├── config/          # Database and Cloudinary setup
+│   │   ├── controllers/     # Request handlers
+│   │   ├── middleware/      # Auth, role guards, error handling
+│   │   ├── models/          # Mongoose schemas
+│   │   ├── routes/          # Express routers
+│   │   ├── services/        # Business logic
+│   │   ├── utils/           # Shared helpers
+│   │   └── validations/     # Request validation
+│   └── .env.example         # Backend environment template
+├── docs/                    # Project documentation
+└── README.md
 ```
 
 ---
@@ -152,6 +156,15 @@ npm run dev
 | Backend | http://localhost:3000 |
 
 ---
+### 6. Optional: load demo data (development only)
+
+Run this from the `server` folder to create sample users, projects and tasks in the database set by `MONGO_URI`:
+
+```bash
+node scripts/seed-demo.js
+```
+
+Log in with username `demoadmin` and password `Demo@12345`. Run `node scripts/seed-demo.js --clean` to remove the demo data. The script refuses to run when `NODE_ENV=production`.
 
 ## 🔑 First Login
 
