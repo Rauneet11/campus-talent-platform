@@ -1,145 +1,237 @@
-# Campus Talent Platform
+# 🎓 Campus Talent Platform
 
-A full-stack campus project management application with role-based access control for Admins, Teachers, and Students.
+### A full-stack campus project management app with role-based access for Admins, Teachers and Students
 
-## Architecture
+![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/Auth-JWT-black)
+
+Campus Talent Platform helps a college manage student projects end to end. Admins set up students, teachers and projects. Students create projects and accept invitations. Teachers mentor projects and assign tasks. Every action is protected by role-based access control.
+
+---
+
+## ✨ Features
+
+- 🔐 **JWT authentication** with three roles: Admin, Teacher, Student
+- 👨‍💼 **Admin dashboard:** statistics, plus creating and managing students, teachers and projects
+- 🎓 **Student workspace:** create projects, accept invitations, update task status
+- 👩‍🏫 **Teacher tools:** mentor projects, create and manage tasks
+- ✉️ **Invitation system** for adding people to projects
+- ✅ **Task tracking** with "my tasks" and admin-wide views
+- ☁️ **Optional file uploads** through Cloudinary
+- 🛡️ **Security basics:** rate-limited auth endpoints, no stack traces in production errors, and a one-time admin setup
+
+<!--
+OPTIONAL: Add screenshots after you take them, then remove these comment lines.
+
+## 🖼️ Screenshots
+
+| Admin Dashboard | Student View |
+|---|---|
+| ![Admin](screenshots/admin.png) | ![Student](screenshots/student.png) |
+-->
+
+---
+
+## 👥 User Roles
+
+| Role | What they can do |
+|---|---|
+| **Admin** | Create students, teachers and projects. View all data. |
+| **Teacher** | Mentor projects. Create and manage tasks. |
+| **Student** | Create projects. Accept invitations. Update task status. |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technologies |
+|---|---|
+| **Frontend** | React, Vite, Bootstrap, react-icons |
+| **Backend** | Node.js, Express.js |
+| **Database** | MongoDB Atlas with Mongoose |
+| **Auth & Security** | JWT, role-based middleware, rate limiting |
+| **File storage** | Cloudinary (optional) |
+
+---
+
+## 📂 Project Structure
 
 ```
-campus/
-├── client/          # React + Vite frontend (Bootstrap + react-icons)
+campus-talent-platform/
+├── client/                  # React + Vite frontend
 │   ├── src/
-│   │   ├── App.jsx  # Main application (routing, views, API calls)
-│   │   ├── App.css  # Application styles
-│   │   └── main.jsx # React entry point
-│   └── .env.example # Environment variable template
-└── server/          # Express.js + Mongoose backend
+│   │   ├── App.jsx          # Routing, views, API calls
+│   │   ├── App.css          # Styles
+│   │   └── main.jsx         # React entry point
+│   └── .env.example         # Frontend environment template
+└── server/                  # Express + Mongoose backend
     ├── src/
-    │   ├── app.js        # Express app (middleware, routes)
-    │   ├── server.js     # Entry point (DB connect → HTTP listen)
-    │   ├── config/db.js  # MongoDB Atlas connection
-    │   ├── controllers/  # Request handlers
-    │   ├── middleware/    # Auth, role guards, error handling
-    │   ├── models/        # Mongoose schemas
-    │   └── routes/        # Express routers
-    └── .env.example  # Environment variable template
+    │   ├── app.js           # Express app (middleware, routes)
+    │   ├── server.js        # Entry point (DB connect, then listen)
+    │   ├── config/db.js     # MongoDB Atlas connection
+    │   ├── controllers/     # Request handlers
+    │   ├── middleware/      # Auth, role guards, error handling
+    │   ├── models/          # Mongoose schemas
+    │   └── routes/          # Express routers
+    └── .env.example         # Backend environment template
 ```
 
-## Quick Start
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+
-- A MongoDB Atlas account (free tier works)
 
-### 1. Configure environment variables
+- Node.js 18 or higher
+- A free [MongoDB Atlas](https://cloud.mongodb.com) account
 
-**Backend:**
+### 1. Clone the repository
+
 ```bash
-cp server/.env.example server/.env
-# Edit server/.env — fill in MONGO_URI, JWT_SECRET, etc.
+git clone https://github.com/Rauneet11/campus-talent-platform.git
+cd campus-talent-platform
 ```
 
-**Frontend:**
-```bash
-cp client/.env.example client/.env
-# Edit client/.env — set VITE_API_URL=http://localhost:3000
+### 2. Set up MongoDB Atlas
+
+1. Sign in at [cloud.mongodb.com](https://cloud.mongodb.com)
+2. Create a free **M0** cluster (or use an existing one)
+3. **Database Access:** add a database user with Read and Write access
+4. **Network Access:** add your IP address (or `0.0.0.0/0` for development only)
+5. Click **Connect → Drivers → Node.js** and copy the connection string
+6. Replace `<username>`, `<password>` and `<database-name>` in the string
+
+Example:
+
+```
+MONGO_URI=mongodb+srv://myuser:mypassword@cluster0.abc123.mongodb.net/campus?retryWrites=true&w=majority
 ```
 
-### 2. Install dependencies
+### 3. Configure environment variables
+
 ```bash
 # Backend
-cd server
-npm install
+cp server/.env.example server/.env
+# Edit server/.env and fill in MONGO_URI, JWT_SECRET, etc.
 
 # Frontend
-cd ../client
-npm install
+cp client/.env.example client/.env
+# Edit client/.env and set VITE_API_URL=http://localhost:3000
 ```
 
-### 3. Start the development servers
+### 4. Install dependencies
 
-**Backend** (in one terminal):
+```bash
+cd server && npm install
+cd ../client && npm install
+```
+
+### 5. Run the app
+
+Backend, in one terminal:
+
 ```bash
 cd server
 npm run dev
 ```
 
-**Frontend** (in another terminal):
+Frontend, in another terminal:
+
 ```bash
 cd client
 npm run dev
 ```
 
-The frontend runs at http://localhost:5173 and the backend at http://localhost:3000.
+| Service | URL |
+|---|---|
+| Frontend | http://localhost:5173 |
+| Backend | http://localhost:3000 |
 
-## MongoDB Atlas Setup
+---
 
-1. Sign in at https://cloud.mongodb.com
-2. Create a free M0 cluster (or use an existing one)
-3. Under **Database Access** → Add a database user with **Read and Write** access
-4. Under **Network Access** → Add your IP address (or `0.0.0.0/0` for development)
-5. Click **Connect** → **Drivers** → select **Node.js** → copy the connection string
-6. Replace `<username>`, `<password>`, and `<database-name>` in the string
-7. Paste the final string as `MONGO_URI` in `server/.env`
+## 🔑 First Login
 
-**Example:**
-```
-MONGO_URI=mongodb+srv://myuser:mypassword@cluster0.abc123.mongodb.net/campus?retryWrites=true&w=majority
-```
-
-## API Endpoints
-
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | `/health` | Server health check |
-| POST | `/api/auth/login` | Login |
-| POST | `/api/auth/setup-admin` | Initial admin creation |
-| GET | `/api/admin/dashboard` | Admin statistics |
-| GET/POST | `/api/admin/students` | Student management |
-| GET/POST | `/api/admin/teachers` | Teacher management |
-| GET | `/api/projects` | List projects |
-| POST | `/api/projects` | Create project (student) |
-| GET | `/api/tasks/my` | My tasks |
-| GET | `/api/tasks/all` | All tasks (admin) |
-| GET/PUT | `/api/invitations/my` | Student invitations |
-
-## User Roles
-
-- **Admin**: Create students/teachers/projects, view all data
-- **Teacher**: Mentor projects, create and manage tasks
-- **Student**: Create projects, accept invitations, update task status
-
-## First Login
-
-1. Visit the app and click **Setup admin** to create the first admin account
+1. Open the app and click **Setup admin** to create the first admin account
 2. Log in as **Admin**
 3. Create teacher and student accounts from the admin dashboard
-4. Credentials are shown once after account creation — save them securely
+4. Credentials are shown **once** after account creation, so save them securely
 
-## Environment Variables Reference
+---
+
+## 🔌 API Endpoints
+
+| Method | Path | Description |
+|---|---|---|
+| GET | `/health` | Server health check |
+| POST | `/api/auth/login` | Log in |
+| POST | `/api/auth/setup-admin` | Create the initial admin |
+| GET | `/api/admin/dashboard` | Admin statistics |
+| GET / POST | `/api/admin/students` | Manage students |
+| GET / POST | `/api/admin/teachers` | Manage teachers |
+| GET | `/api/projects` | List projects |
+| POST | `/api/projects` | Create a project (student) |
+| GET | `/api/tasks/my` | My tasks |
+| GET | `/api/tasks/all` | All tasks (admin) |
+| GET / PUT | `/api/invitations/my` | Student invitations |
+
+---
+
+## ⚙️ Environment Variables
 
 ### Backend (`server/.env`)
 
 | Variable | Required | Description |
-|----------|----------|-------------|
-| `PORT` | No | HTTP port (default: 3000) |
-| `MONGO_URI` | **Yes** | MongoDB Atlas connection string |
-| `JWT_SECRET` | **Yes** | Long random string for JWT signing |
-| `JWT_EXPIRES_IN` | No | Token expiry (default: `1d`) |
-| `CLIENT_ORIGIN` | No | Frontend URL for CORS (default: `http://localhost:5173`) |
-| `CLOUDINARY_CLOUD_NAME` | No | For file uploads |
-| `CLOUDINARY_API_KEY` | No | For file uploads |
-| `CLOUDINARY_API_SECRET` | No | For file uploads |
+|---|---|---|
+| `MONGO_URI` | ✅ | MongoDB Atlas connection string |
+| `JWT_SECRET` | ✅ | Long random string used to sign tokens |
+| `PORT` | No | HTTP port (default `3000`) |
+| `JWT_EXPIRES_IN` | No | Token expiry (default `1d`) |
+| `CLIENT_ORIGIN` | No | Frontend URL for CORS (default `http://localhost:5173`) |
+| `CLOUDINARY_CLOUD_NAME` | No | File uploads |
+| `CLOUDINARY_API_KEY` | No | File uploads |
+| `CLOUDINARY_API_SECRET` | No | File uploads |
 
 ### Frontend (`client/.env`)
 
 | Variable | Required | Description |
-|----------|----------|-------------|
-| `VITE_API_URL` | **Yes** | Backend API URL |
+|---|---|---|
+| `VITE_API_URL` | ✅ | Backend API URL |
 
-## Security Notes
+---
 
-- Never commit `.env` files — they are excluded by `.gitignore`
-- JWT secrets should be at least 64 random characters
-- The admin setup endpoint (`/api/auth/setup-admin`) is automatically blocked once any admin exists
-- All API error responses in production never expose stack traces
-- Rate limiting is applied to all auth endpoints (30 req/15 min per IP)
+## 🔒 Security Notes
+
+- Never commit `.env` files. They are excluded by `.gitignore`.
+- Use a `JWT_SECRET` of at least 64 random characters.
+- `/api/auth/setup-admin` is blocked automatically once any admin exists.
+- In production, API errors never expose stack traces.
+- Auth endpoints are rate limited to 30 requests per 15 minutes per IP.
+- Restrict MongoDB Network Access to specific IPs in production instead of `0.0.0.0/0`.
+
+---
+
+## 🎯 Roadmap
+
+- [ ] Live demo deployment
+- [ ] Automated tests for API routes
+- [ ] Email notifications for invitations and task updates
+- [ ] Project progress analytics for teachers and admins
+
+---
+
+## 👤 Author
+
+**Rauneet Singh**: MCA student, aspiring data analyst
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/rauneet-/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/Rauneet11)
+
+---
+
+## 📄 License
+
+Released under the [MIT License](LICENSE).
